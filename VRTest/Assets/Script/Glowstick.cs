@@ -9,14 +9,13 @@ public class Glowstick : MonoBehaviour {
     public float m_intensityIncrease;
     public float m_intensityDecrease;
 
-    SteamVR_Controller.Device controller = new SteamVR_Controller.Device(1);// = new SteamVR_Controller.Device(3);
+    SteamVR_Controller.Device controller;// = new SteamVR_Controller.Device(3);
 
 	// Use this for initialization
 	void Start ()
     {
-        //SteamVR_TrackedObject.EIndex index = GetComponentInParent<SteamVR_TrackedObject>().index;
-        //controller = new SteamVR_Controller.Device((uint)index);
-        //print("SPare line so we can debug");
+        SteamVR_TrackedObject.EIndex index = GetComponentInParent<SteamVR_TrackedObject>().index;
+        controller = new SteamVR_Controller.Device((uint)index);
 	}
 	
 	// Update is called once per frame
@@ -26,7 +25,6 @@ public class Glowstick : MonoBehaviour {
 
 	    if(controller.velocity.magnitude > m_minimumVelocity && light.intensity < m_maximumIntensity)
         {
-           
             light.intensity += m_intensityIncrease * Time.deltaTime;
         }
 
