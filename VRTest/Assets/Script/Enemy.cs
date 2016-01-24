@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour {
             dying = true;
             animator.SetBool("playingDeathAnim", true);
             agent.SetDestination(transform.position);
+            agent = null;
         }
         
         if (m_health >= 0 && !dying)
