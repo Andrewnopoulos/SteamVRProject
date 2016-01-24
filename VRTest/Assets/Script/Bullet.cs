@@ -21,6 +21,10 @@ public class Bullet : MonoBehaviour {
         GameObject bulletHole = Instantiate<GameObject>(m_bulletHolePrefab);
         bulletHole.transform.forward = -other.contacts[0].normal;
         bulletHole.transform.position = other.contacts[0].point + other.contacts[0].normal * 0.001f;
+        bulletHole.transform.parent = other.transform;
+
+        if (other.gameObject.tag == "Enemy")
+            other.gameObject.GetComponentInParent<Enemy>().SendMessage("TakeHit", SendMessageOptions.DontRequireReceiver);
 
         BulletDestroy(true);
     }
