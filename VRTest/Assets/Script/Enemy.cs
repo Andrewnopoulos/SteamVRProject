@@ -6,11 +6,13 @@ public class Enemy : MonoBehaviour {
     Animator animator;
     NavMeshAgent agent;
 
-    bool coroutineRunning = false;
-
     public int m_health = 4;
 
     private bool dying = false;
+
+    public float timeDead = 10;
+
+    private bool inactive = false;
 
 	// Use this for initialization
 	void Start ()
@@ -39,6 +41,16 @@ public class Enemy : MonoBehaviour {
         if (dying && !animator.GetBool("playingDeathAnim"))
         {
             animator.Stop();
+            inactive = true;
+        }
+
+        if (inactive)
+        {
+            timeDead -= Time.deltaTime;
+            if (timeDead < 0)
+            {
+                Destroy(this.gameObject);
+            }
         }
 	}
 
